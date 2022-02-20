@@ -1,0 +1,41 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "commonjs": true,
+    "node": true
+  },
+  "extends": [
+    "google",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "globalReturn": false
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "no-duplicate-imports": "warn",
+    "consistent-return": "error",
+    "eqeqeq": "warn",
+    "prefer-destructuring": "warn",
+    "no-underscore-dangle": "error",
+    "no-console": "warn",
+    "no-unused-vars": "error",
+    "new-cap": "off"
+  }
+}
