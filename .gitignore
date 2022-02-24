@@ -1,5 +1,4 @@
 config
-.env
 node_modules
 prod
 tsconfig.tsbuildinfo

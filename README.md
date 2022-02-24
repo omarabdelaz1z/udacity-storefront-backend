@@ -41,6 +41,7 @@ PEPPER=SANCTUARY
 
 Kindly find them at [REQUIREMENTS](REQUIREMENTS.md).
 
-Note: You need to attach `authorization` in the request headers to access the routes: `Authorization: Bearer <token>`
+Note: You need to attach `authorization` in the request headers to access the routes:
+- `Authorization: Bearer <token>`
 
 
