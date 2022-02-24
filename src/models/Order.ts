@@ -17,17 +17,23 @@ export interface OrderResponse extends DatabaseResponse {
 
 export const findOrdersByUserId = async (
   id: number,
-  status: OrderStatus = "COMPLETE"
+  status: OrderStatus | null
 ): Promise<OrderResponse> => {
   try {
     const client = await pool.connect();
-    
+
     const resultSet = await client.query(
-      `SELECT o.id id, o.product_id "productId", p.name "productName", o.quantity quantity,
-        o.user_id "userId", o.status status
-      FROM orders o INNER JOIN products p ON o.product_id = p.id 
-      INNER JOIN users u ON u.id = o.user_id
-      WHERE o.user_id = $1 AND o.status = $2;`,
+      `
+      SELECT O.ID ID,
+          O.PRODUCT_ID "productId",
+          P.NAME "productName",
+          O.QUANTITY QUANTITY,
+          O.USER_ID "userId",
+          O.STATUS STATUS
+      FROM ORDERS O
+          INNER JOIN PRODUCTS P ON O.PRODUCT_ID = P.ID
+          INNER JOIN USERS U ON U.ID = O.USER_ID
+      WHERE O.USER_ID = $1 AND O.STATUS = COALESCE($2, O.STATUS)`,
       [id, status]
     );
 
