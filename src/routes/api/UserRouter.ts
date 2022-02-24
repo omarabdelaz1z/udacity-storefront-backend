@@ -6,7 +6,11 @@ import {
   findUsersHandler,
 } from "../../controllers/UserController";
 import { isAuthorized } from "../../middlewares/auth";
-import { validateUser, validateUserParams } from "../../middlewares/validate";
+import {
+  validateUser,
+  validateUserOrdersParams,
+  validateUserParams,
+} from "../../middlewares/validate";
 
 const users = Router();
 
@@ -21,7 +25,7 @@ users
 
 users.get(
   "/:id/orders/",
-  ...[isAuthorized, validateUserParams, findOrdersByUserIdHandler]
+  ...[isAuthorized, validateUserOrdersParams, findOrdersByUserIdHandler]
 );
 
 export default users;
