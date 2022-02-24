@@ -9,7 +9,7 @@ export const addUserHandler = async (req: Request, res: Response) => {
   const { firstName, lastName, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 14);
+    const hashedPassword = await bcrypt.hash(password, process.env.SALT_ROUNDS);
 
     const response = await addUser({
       firstName,
