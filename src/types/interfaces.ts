@@ -12,11 +12,6 @@ export interface JoiValidationError {
   value: unknown | undefined;
 }
 
-export interface DatabaseError {
-  status: number;
-  message: string;
-}
-
 export interface DatabaseResponse {
   error?: {
     message: string;
