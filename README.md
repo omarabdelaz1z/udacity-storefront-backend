@@ -20,6 +20,8 @@ It is expected to run `npm install` first before executing any of the scripts be
 
 NOTE: These variables are only used for development/testing purposes.
 
+ANOTHER NOTE: I need to write them down to pass the project in the nanodegree :thinking:
+
 ```env
 NODE_ENV=DEVELOPMENT
 PORT=5000
