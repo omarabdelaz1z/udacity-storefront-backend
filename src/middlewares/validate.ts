@@ -6,12 +6,12 @@ import { prettifyJoiError } from "../utils/general";
 import { JoiValidationError } from "../types/interfaces";
 import logger from "../utils/log/logger";
 
-export const validateUser = (
+export const validateUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const validation = userSchema.validate(req.body, VALIDATE_OPTIONS);
+  const validation = await userSchema.validateAsync(req.body, VALIDATE_OPTIONS);
 
   const validationError: JoiValidationError[] = prettifyJoiError(
     validation?.error
@@ -26,12 +26,12 @@ export const validateUser = (
   return next();
 };
 
-export const validateProduct = (
+export const validateProduct = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const validation = productSchema.validate(req.body, VALIDATE_OPTIONS);
+  const validation = await productSchema.validateAsync(req.body, VALIDATE_OPTIONS);
 
   const validationError: JoiValidationError[] = prettifyJoiError(
     validation?.error
@@ -60,6 +60,52 @@ export const validateOrderParams = (
           "Please provide userId as it is not supplied in the query params.",
       },
     });
+  }
+
+  if (typeof req.query?.status !== "undefined") {
+    const { status } = req.query;
+
+    if (status !== "COMPLETE" && status !== "ACTIVE") {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        error: {
+          message:
+            "If you provided the status; it should be either 'ACTIVE' or 'COMPLETE'.",
+        },
+      });
+    }
+    return next();
+  }
+  return next();
+};
+
+export const validateUserOrdersParams = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (typeof req.params?.id === "undefined") {
+    logger.error("UserId is not supplied in the query params");
+
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: {
+        message:
+          "Please provide userId as it is not supplied in the query params.",
+      },
+    });
+  }
+
+  if (typeof req.query?.status !== "undefined") {
+    const { status } = req.query;
+
+    if (status !== "COMPLETE" && status !== "ACTIVE") {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        error: {
+          message:
+            "If you provided the status; it should be either 'ACTIVE' or 'COMPLETE'.",
+        },
+      });
+    }
+    return next();
   }
   return next();
 };
