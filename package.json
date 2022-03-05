@@ -7,17 +7,25 @@
     "build": "tsc",
     "prestart": "npm run build",
     "start": "tsc && node -r dotenv/config ./prod/index.js",
-    "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --cls -- ./src/index.ts",
-    "lint": "eslint --ext .ts --config .eslintrc.json --fix -- ./src",
-    "format": "prettier --config .prettierrc.json --write \"./**/*.ts\""
+    "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --cls ./src/index.ts",
+    "lint": "eslint --ext .js,.ts --config .eslintrc.json --fix",
+    "pretty": "prettier --config .prettierrc.json --write \"./**/*.{ts,json}\"",
+    "dev-migrate-up": "db-migrate up -m ./database/migrations --config ./database/config/dev.json",
+    "dev-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/dev.json",
+    "test-migrate-up": "db-migrate up -m ./database/migrations --config ./database/config/test.json",
+    "test-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/test.json",
+    "test":"tsc && jasmine --config=\"spec/support/jasmine.json\""
   },
   "keywords": [
     "typescript",
     "node",
     "express",
-    "postgresql"
+    "postgresql",
+    "jasmine",
+    "supertest",
+    "migrations"
   ],
-  "author": "omarabdelaz1z omarabdelaziz042@gmail.com",
+  "author": "Omar Abdelaziz <omarabdelaziz042@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -33,6 +41,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
+    "supertest": "^6.2.2",
     "winston": "^3.6.0"
   },
   "devDependencies": {
@@ -56,8 +65,9 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
+    "jasmine-ts": "^0.4.0",
     "prettier": "^2.5.1",
-    "ts-node": "^10.5.0",
+    "ts-node": "^10.6.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.5"
   }

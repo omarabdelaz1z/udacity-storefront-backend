@@ -31,7 +31,6 @@ DB_USER=postgres
 DB_PASSWORD=admin
 
 JWT_ACCESS=straycats
-JWT_ACCESS=straycatsarecool
 
 SALT_ROUNDS=10
 PEPPER=SANCTUARY

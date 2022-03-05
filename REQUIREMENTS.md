@@ -19,11 +19,11 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Users
 
-- Index [token required]: 
+- Index [token required]:
   - [GET] `users/`
-- Show [token required]: 
+- Show [token required]:
   - [GET] `users/:id`
-- Create [token required]: 
+- Create: 
   - [POST] `users/`
 
 #### Orders
