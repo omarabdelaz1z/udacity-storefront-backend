@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { ValidationError } from "joi";
 import { JoiValidationError } from "../types/interfaces";
 
@@ -9,4 +10,8 @@ export const prettifyJoiError = (
   return error.details.map(({ message, context: { key, value, label } }) => {
     return { key, label, message, value };
   });
+};
+
+export const hashPassword = async (password: string, salt: number) => {
+  return bcrypt.hash(password, salt);
 };
