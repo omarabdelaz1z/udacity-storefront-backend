@@ -22,6 +22,6 @@ const routes: Route[] = [
 
 const index = Router();
 
-routes.forEach((r) => index.use(r.name, r.router));
+routes.forEach(({ name, router }) => index.use(name, router));
 
 export default index;
