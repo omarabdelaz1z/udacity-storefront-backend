@@ -14,8 +14,6 @@ These are the notes from a meeting with the frontend developer that describe wha
   - [GET] `products/:id`
 - Create [token required]: 
   - [POST] `products/`
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
 
 #### Users
 
@@ -32,7 +30,6 @@ These are the notes from a meeting with the frontend developer that describe wha
   - [GET] `orders?userId=&status=(COMPLETE|ACTIVE)` 
   - [GET] `users/:id/orders?status=(COMPLETE|ACTIVE)` (optional route)
   - Example: `orders/userId=1&status=ACTIVE`
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
 ## Data Shapes
 
