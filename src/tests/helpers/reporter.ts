@@ -6,15 +6,15 @@ import {
 
 import JasmineStartedInfo = jasmine.JasmineStartedInfo;
 /**
- * 
+ *
  */
 class CustomProcessor extends DisplayProcessor {
-/**
- * Display Log
- * @param {JasmineStartedInfo} _ StartedInfo.
- * @param {string} log spec string.
- * @return {string} log message
- */
+  /**
+   * Display Log
+   * @param {JasmineStartedInfo} _ StartedInfo.
+   * @param {string} log spec string.
+   * @return {string} log message
+   */
   public displayJasmineStarted(_: JasmineStartedInfo, log: string): string {
     return `${log}`;
   }
