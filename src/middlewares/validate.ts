@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
+import { ValidationError } from "joi";
 import { VALIDATE_OPTIONS } from "../utils/validation/constants";
 import { productSchema, userSchema } from "../utils/validation/schemas";
 import { prettifyJoiError } from "../utils/general";
@@ -11,19 +12,19 @@ export const validateUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const validation = await userSchema.validateAsync(req.body, VALIDATE_OPTIONS);
+  try {
+    await userSchema.validateAsync(req.body, VALIDATE_OPTIONS);
+    logger.info(`user data is validated correctly.`);
+    return next();
+  } catch (e) {
+    logger.info(`Error while validating UserSchema ${req.body}`);
 
-  const validationError: JoiValidationError[] = prettifyJoiError(
-    validation?.error
-  );
-
-  if (validationError.length !== 0) {
-    logger.info(`user info is invalid.`);
-    return res.status(StatusCodes.BAD_REQUEST).json(validationError);
+    if (e instanceof ValidationError) {
+      const validationError: JoiValidationError[] = prettifyJoiError(e);
+      return res.status(StatusCodes.BAD_REQUEST).json(validationError);
+    }
+    return res.status(StatusCodes.BAD_REQUEST).send(e);
   }
-
-  logger.info(`user data is validated correctly.`);
-  return next();
 };
 
 export const validateProduct = async (
@@ -31,19 +32,19 @@ export const validateProduct = async (
   res: Response,
   next: NextFunction
 ) => {
-  const validation = await productSchema.validateAsync(req.body, VALIDATE_OPTIONS);
+  try {
+    await productSchema.validateAsync(req.body, VALIDATE_OPTIONS);
+    logger.info(`Product Data is validated Correctly`);
+    return next();
+  } catch (e) {
+    logger.info(`Error while validating ProductSchema ${req.body}`);
 
-  const validationError: JoiValidationError[] = prettifyJoiError(
-    validation?.error
-  );
-
-  if (validationError.length !== 0) {
-    logger.info(`user info is invalid.`);
-    return res.status(StatusCodes.BAD_REQUEST).json(validationError);
+    if (e instanceof ValidationError) {
+      const validationError: JoiValidationError[] = prettifyJoiError(e);
+      return res.status(StatusCodes.BAD_REQUEST).json(validationError);
+    }
+    return res.status(StatusCodes.BAD_REQUEST).send(e);
   }
-
-  logger.info(`user data is validated correctly.`);
-  return next();
 };
 
 export const validateOrderParams = (
