@@ -19,3 +19,5 @@ app.get("/", (_: Request, res: Response) => {
 app.listen(PORT, async () => {
   logger.info(`server listens on port ${PORT}`);
 });
+
+export default app;

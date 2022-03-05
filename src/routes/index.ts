@@ -7,21 +7,21 @@ import { Route } from "../types/interfaces";
 
 const routes: Route[] = [
   {
-    resource: "/users",
+    name: "/users",
     router: UserRouter,
   },
   {
-    resource: "/products",
+    name: "/products",
     router: ProductRouter,
   },
   {
-    resource: "/orders",
+    name: "/orders",
     router: OrderRouter,
   },
 ];
 
 const index = Router();
 
-routes.forEach((r) => index.use(r.resource, r.router));
+routes.forEach((r) => index.use(r.name, r.router));
 
 export default index;

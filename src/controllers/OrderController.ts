@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { findOrdersByUserId, OrderStatus } from "../models/Order";
+import { findOrdersByUserId } from "../models/Order";
+import { OrderStatus } from "../types/interfaces";
 import logger from "../utils/log/logger";
 
 export const findOrdersByUserIdHandler = async (

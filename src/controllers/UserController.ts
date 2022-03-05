@@ -1,15 +1,18 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import logger from "../utils/log/logger";
 import { addUser, findUsers, findUserById } from "../models/User";
+import { hashPassword } from "../utils/general";
 
 export const addUserHandler = async (req: Request, res: Response) => {
-  const { firstName, lastName, password } = req.body;
-
   try {
-    const hashedPassword = await bcrypt.hash(password, process.env.SALT_ROUNDS);
+    const { firstName, lastName, password } = req.body;
+
+    const hashedPassword = await hashPassword(
+      password,
+      Number(process.env.SALT_ROUNDS)
+    );
 
     const response = await addUser({
       firstName,
