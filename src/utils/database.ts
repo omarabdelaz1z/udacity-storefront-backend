@@ -6,7 +6,7 @@ dotenv.config();
 const pool = new Pool({
   host: process.env.DB_HOST,
   database:
-    process.env.DB_NAME === "DEVELOPMENT"
+    process.env.NODE_ENV === "DEVELOPMENT"
       ? process.env.DB_NAME
       : process.env.DB_NAME_TEST,
   user: process.env.DB_USER,

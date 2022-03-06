@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+export type JwtPayload = string | object | Buffer;
 
 export type OrderStatus = "ACTIVE" | "COMPLETE";
 
@@ -43,6 +44,7 @@ export interface JoiValidationError {
 export interface DatabaseResponse {
   error?: {
     message: string;
+    status: number;
   };
 }
 

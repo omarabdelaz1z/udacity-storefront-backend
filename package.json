@@ -14,7 +14,7 @@
     "dev-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/dev.json",
     "test-migrate-up": "db-migrate up -m ./database/migrations --config ./database/config/test.json",
     "test-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/test.json",
-    "test":"tsc && jasmine --config=\"spec/support/jasmine.json\""
+    "test":"tsc && npm run test-migrate-up && set NODE_ENV=\"TESTING\" && jasmine --config=\"spec/support/jasmine.json\" && npm run test-migrate-down"
   },
   "keywords": [
     "typescript",
