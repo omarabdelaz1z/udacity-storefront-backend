@@ -17,10 +17,10 @@ export const findOrdersByUserIdHandler = async (
   try {
     const response = await findOrdersByUserId(userId, status);
 
-    if (response?.error)
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response.error);
-
-    return res.status(StatusCodes.OK).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.OK)
+      .json(response);
+      
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
     return res

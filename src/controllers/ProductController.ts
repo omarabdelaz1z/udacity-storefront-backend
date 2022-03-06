@@ -7,11 +7,9 @@ export const addProductHandler = async (req: Request, res: Response) => {
   try {
     const response = await addProduct(req.body);
 
-    const statusCode = response?.error
-      ? StatusCodes.INTERNAL_SERVER_ERROR
-      : StatusCodes.CREATED;
-
-    return res.status(statusCode).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.CREATED)
+      .json(response);
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
 
@@ -27,11 +25,9 @@ export const findProductsHandler = async (_: Request, res: Response) => {
   try {
     const response = await findProducts();
 
-    const statusCode = response?.error
-      ? StatusCodes.INTERNAL_SERVER_ERROR
-      : StatusCodes.CREATED;
-
-    return res.status(statusCode).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.OK)
+      .json(response);
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
 
@@ -49,11 +45,9 @@ export const findProductByIdHandler = async (req: Request, res: Response) => {
   try {
     const response = await findProductById(id);
 
-    const statusCode = response?.error
-      ? StatusCodes.INTERNAL_SERVER_ERROR
-      : StatusCodes.CREATED;
-
-    return res.status(statusCode).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.OK)
+      .json(response);
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
 

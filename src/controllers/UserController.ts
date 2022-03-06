@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import jwt from "jsonwebtoken";
 import logger from "../utils/log/logger";
 import { addUser, findUsers, findUserById } from "../models/User";
-import { hashPassword } from "../utils/general";
+import { generateToken, hashPassword } from "../utils/general";
 
 export const addUserHandler = async (req: Request, res: Response) => {
   try {
@@ -21,9 +20,9 @@ export const addUserHandler = async (req: Request, res: Response) => {
     });
 
     if (response?.error)
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response);
+      return res.status(response.error.status).json(response);
 
-    const token = jwt.sign(response, process.env.JWT_ACCESS);
+    const token = generateToken(response.data, process.env.JWT_ACCESS);
 
     return res.status(StatusCodes.CREATED).json({ ...response.data, token });
   } catch (err) {
@@ -39,7 +38,9 @@ export const findUsersHandler = async (_: Request, res: Response) => {
   try {
     const response = await findUsers();
 
-    return res.status(StatusCodes.OK).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.OK)
+      .json(response);
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
     return res
@@ -54,7 +55,9 @@ export const findUsersByIdHandler = async (req: Request, res: Response) => {
   try {
     const response = await findUserById(id);
 
-    return res.status(StatusCodes.OK).json(response);
+    return res
+      .status(response?.error ? response.error.status : StatusCodes.OK)
+      .json(response);
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
     return res
