@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { ListModelResponse, ModelResponse, User } from "../types/interfaces";
 import pool from "../utils/database";
 import logger from "../utils/log/logger";
@@ -15,7 +16,8 @@ export const findUsers = async (): Promise<
     logger.error(`Error while fetching users data due to ${err}`);
     return {
       error: {
-        message: "Error while fetching users data",
+        message: `Couldn't fetch users due to ${err}`,
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
       },
     };
   }
@@ -33,7 +35,8 @@ export const findUserById = async (
     if (typeof resultSet.rows[0] === "undefined") {
       return {
         error: {
-          message: `User with id [${id}] is not found.`,
+          message: `User with id: ${id} is not found.`,
+          status: StatusCodes.NOT_FOUND,
         },
       };
     }
@@ -43,9 +46,11 @@ export const findUserById = async (
     logger.error(
       `Error while fetching user's data with id [${id}] due to ${err}`
     );
+
     return {
       error: {
-        message: `Error while fetching user's data with id [${id}]`,
+        message: `Couldn't fetch user with id: ${id} due to ${err}`,
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
       },
     };
   }
@@ -74,7 +79,8 @@ export const addUser = async (
 
     return {
       error: {
-        message: `Error while inserting user's data into database due to ${err}`,
+        message: `Couldn't insert user due to ${err}`,
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
       },
     };
   }

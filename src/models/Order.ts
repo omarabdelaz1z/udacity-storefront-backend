@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { OrderResponse, OrderStatus } from "../types/interfaces";
 import pool from "../utils/database";
 import logger from "../utils/log/logger";
@@ -28,7 +29,8 @@ export const findOrdersByUserId = async (
 
     return {
       error: {
-        message: `Error while fetching orders data due to ${err}`,
+        message: `Couldn't fetch ${status} orders with id ${id} orders data due to ${err}`,
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
       },
     };
   }
