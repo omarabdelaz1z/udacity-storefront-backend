@@ -14,7 +14,7 @@ describe("Product Model Suite", () => {
   it("get products", async () => {
     const response = await findProducts();
 
-    expect(response.items).toHaveSize(6);
+    expect(response.items).toHaveSize(7);
     expect(response.items[0].name).toEqual("koolaid");
     expect(response.items[0].price).toContain("$50.00");
     expect(response.items[0].category).toContain("Drink Mix");
