@@ -116,8 +116,8 @@ export const validateProductParams = (
   res: Response,
   next: NextFunction
 ) => {
-  if (typeof req.params?.id === "undefined") {
-    logger.error("ProductId is not supplied in the query params");
+  if (typeof req.params?.id === "undefined" || isNaN(Number(req.params?.id))) {
+    logger.error("please provide a valid product id");
     return res.status(StatusCodes.BAD_REQUEST).json({
       error: {
         message:
@@ -133,8 +133,8 @@ export const validateUserParams = (
   res: Response,
   next: NextFunction
 ) => {
-  if (typeof req.params?.id === "undefined") {
-    logger.error("UserId is not supplied in the query params");
+  if (typeof req.params?.id === "undefined" || isNaN(Number(req.params?.id))) {
+    logger.error("please supply a valid userId");
     return res.status(StatusCodes.BAD_REQUEST).json({
       error: {
         message:

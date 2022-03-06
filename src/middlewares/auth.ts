@@ -10,10 +10,10 @@ export const isAuthorized = async (
 ) => {
   try {
     const authHeader = req.headers.authorization;
-    const [, token] = authHeader.split(" ");
+    const [, token] = authHeader?.split(" ");
     jwt.verify(token, process.env.JWT_ACCESS);
 
-    logger.info("Authorized");
+    logger.info("Authorized Access");
 
     return next();
   } catch (error) {
@@ -21,7 +21,7 @@ export const isAuthorized = async (
     return res.status(StatusCodes.UNAUTHORIZED).json({
       error: {
         message:
-          "Unauthorized Access: Token is required in the authorization headers",
+          "Unauthorized Access: Token is required in the authorization headers: Bearer <token>",
       },
     });
   }
