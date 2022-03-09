@@ -68,20 +68,40 @@ CREATE TABLE IF NOT EXISTS users (
 #### Orders
 
 - id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
-
+- id of the user [FK]
+- status of order (ACTIVE | COMPLETE)
 
 ```sql
 CREATE TYPE order_status as ENUM ('ACTIVE', 'COMPLETE');
 
 CREATE TABLE IF NOT EXISTS orders (
   id SERIAL PRIMARY KEY,
-  product_id INT REFERENCES products,
-  quantity INT,
-  user_id INT REFERENCES users,
-  status order_status
+  user_id INT,
+  status order_status,
+  CONSTRAINT fk_user
+	FOREIGN KEY(user_id)
+		REFERENCES users(id)
+);
+```
+
+#### Order Products
+- id of the order [FK]
+- id of the product [FK]
+- quantity
+
+```sql
+CREATE TABLE IF NOT EXISTS order_products (
+	order_id SERIAL,
+	product_id SERIAL,
+	quantity INT,
+	PRIMARY KEY(product_id, order_id),
+
+	CONSTRAINT fk_product
+		FOREIGN KEY(product_id)
+			REFERENCES products(id),
+  
+	CONSTRAINT fk_order
+		FOREIGN KEY(order_id)
+			REFERENCES orders(id)
 );
 ```

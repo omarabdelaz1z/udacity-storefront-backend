@@ -7,14 +7,12 @@
     "build": "tsc",
     "prestart": "npm run build",
     "start": "tsc && node -r dotenv/config ./prod/index.js",
-    "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --cls ./src/index.ts",
+    "db:up": "db-migrate up",
+    "db:down": "db-migrate reset",
+    "dev": "npm run db:up && ts-node-dev -r dotenv/config --respawn --transpile-only --cls ./src/index.ts",
     "lint": "eslint --ext .js,.ts --config .eslintrc.json --fix",
     "pretty": "prettier --config .prettierrc.json --write \"./**/*.{ts,json}\"",
-    "dev-migrate-up": "db-migrate up -m ./database/migrations --config ./database/config/dev.json",
-    "dev-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/dev.json",
-    "test-migrate-up": "db-migrate up -m ./database/migrations --config ./database/config/test.json",
-    "test-migrate-down": "db-migrate reset -m ./database/migrations --config ./database/config/test.json",
-    "test":"tsc && npm run test-migrate-up && set NODE_ENV=\"TESTING\" && jasmine --config=\"spec/support/jasmine.json\" && npm run test-migrate-down"
+    "test": "set NODE_ENV=TEST && db-migrate up --env test && tsc && jasmine --config=\"spec/support/jasmine.json\" && db-migrate reset && set NODE_ENV=DEVELOPMENT"
   },
   "keywords": [
     "typescript",

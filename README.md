@@ -9,12 +9,13 @@ A RESTful API that an online store exposes to serve the frontend.
 It is expected to run `npm install` first before executing any of the scripts below.
 
 #### Scripts
-- eslint: `npm run lint`
-- prettier: `npm run format`
-- development: `npm run dev`
+- linting: `npm run lint`
+- formatting: `npm run pretty`
+- dev: `npm run dev`
 - test: `npm run test`
-- production: `npm run start`
-- build: `npm run build`
+- prod: `npm run start`
+- migrate up: `npm run db:up`
+- migrate down: `npm run db:down`
 
 ### sample dotenv
 
@@ -25,17 +26,14 @@ ANOTHER NOTE: I need to write them down to pass the project in the nanodegree :t
 ```env
 NODE_ENV=DEVELOPMENT
 PORT=5000
-
 DB_NAME=storefront
 DB_NAME_TEST=storefront_test
 DB_HOST=127.0.0.1
+DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=admin
-
 JWT_ACCESS=straycats
-
-SALT_ROUNDS=10
-PEPPER=SANCTUARY
+SALT_ROUNDS=7
 ```
 
 ### API Endpoints

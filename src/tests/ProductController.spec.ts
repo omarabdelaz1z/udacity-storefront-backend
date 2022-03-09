@@ -2,6 +2,7 @@ import supertest from "supertest";
 import { StatusCodes } from "http-status-codes";
 import app from "../index";
 import { generateToken } from "../utils/general";
+import pool from "../utils/database";
 
 const request = supertest(app);
 
@@ -61,8 +62,8 @@ describe("POST /api/products/", () => {
     const response = await request
       .post("/api/products")
       .send({
-        name: "kataketo",
-        price: 4,
+        name: "lambada",
+        price: 2,
       })
       .set("Authorization", `Bearer ${token}`);
 
@@ -77,6 +78,13 @@ describe("POST /api/products/", () => {
     });
 
     expect(response.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+  });
+
+  afterAll(async () => {
+    await pool.query("DELETE FROM products WHERE name IN ($1, $2)", [
+      "lambada",
+      "kataketo",
+    ]);
   });
 });
 
