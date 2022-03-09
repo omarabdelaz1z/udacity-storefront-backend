@@ -2,17 +2,13 @@ import { Router } from "express";
 
 export type JwtPayload = string | object | Buffer;
 
-export type OrderStatus = "ACTIVE" | "COMPLETE";
-
-export interface OrderResponse extends DatabaseResponse {
-  items?: {
-    id: number;
-    userId: number;
-    productId: number;
-    productName: string;
-    quantity: number;
-    status: OrderStatus;
-  }[];
+export interface OrderRow {
+  id?: number;
+  status?: OrderStatus;
+  name: string;
+  price: number;
+  quantity: number;
+  total: number;
 }
 
 export interface Product {
@@ -27,6 +23,24 @@ export interface User {
   firstName: string;
   lastName: string;
   password: string;
+}
+
+export type OrderStatus = "ACTIVE" | "COMPLETE";
+
+export interface Order {
+  id: number;
+  userId: number;
+  status: OrderStatus;
+  products: {
+    name: string;
+    price: number;
+    quantity: number;
+    total: number;
+  }[];
+}
+
+export interface OrderResponse extends DatabaseResponse {
+  items?: Order[];
 }
 
 export interface Route {
