@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "test": {
     "driver": "pg",
     "host": { "ENV": "DB_HOST" },
     "user": { "ENV": "DB_USER" },
