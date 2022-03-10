@@ -8,6 +8,29 @@ A RESTful API that an online store exposes to serve the frontend.
 
 It is expected to run `npm install` first before executing any of the scripts below.
 
+#### Database Setup
+
+2. Create Two Databases: one for development and the other for testing.
+
+```sql
+-- development database
+CREATE DATABASE storefront;
+
+-- test database
+CREATE DATABASE storefront_test;
+```
+
+3. GRANT PRIVILEGES
+```sql
+-- connect to storefront and grant privileges to `default_user`
+\c storefront
+GRANT ALL PRIVILEGES ON DATABASE storefront TO postgres
+
+-- connect to storefront_test and grant privileges to `default_user` 
+\c storefront_test
+GRANT ALL PRIVILEGES ON DATABASE storefront_test TO postgres
+```
+
 #### Scripts
 - linting: `npm run lint`
 - formatting: `npm run pretty`
