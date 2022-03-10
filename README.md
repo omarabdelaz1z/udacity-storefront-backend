@@ -10,8 +10,7 @@ It is expected to run `npm install` first before executing any of the scripts be
 
 #### Database Setup
 
-2. Create Two Databases: one for development and the other for testing.
-
+1. CREATE TWO DATABASES
 ```sql
 -- development database
 CREATE DATABASE storefront;
@@ -20,7 +19,7 @@ CREATE DATABASE storefront;
 CREATE DATABASE storefront_test;
 ```
 
-3. GRANT PRIVILEGES
+2. GRANT PRIVILEGES
 ```sql
 -- connect to storefront and grant privileges to `default_user`
 \c storefront
@@ -30,6 +29,7 @@ GRANT ALL PRIVILEGES ON DATABASE storefront TO postgres
 \c storefront_test
 GRANT ALL PRIVILEGES ON DATABASE storefront_test TO postgres
 ```
+> place the proper configuration according to `.env` based on the keys existing in `database.json`
 
 #### Scripts
 - linting: `npm run lint`
