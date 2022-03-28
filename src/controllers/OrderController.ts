@@ -20,7 +20,6 @@ export const findOrdersByUserIdHandler = async (
     return res
       .status(response?.error ? response.error.status : StatusCodes.OK)
       .json(response);
-      
   } catch (err) {
     logger.error(`Unexpected behavior:  ${err}`);
     return res

@@ -8,11 +8,11 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- Index: 
+- Index:
   - [GET] `products`
-- Show: 
+- Show:
   - [GET] `products/:id`
-- Create [token required]: 
+- Create [token required]:
   - [POST] `products/`
 
 #### Users
@@ -21,13 +21,13 @@ These are the notes from a meeting with the frontend developer that describe wha
   - [GET] `users/`
 - Show [token required]:
   - [GET] `users/:id`
-- Create: 
+- Create:
   - [POST] `users/`
 
 #### Orders
 
-- Current Order by user (args: user id)[token required]: 
-  - [GET] `orders?userId=&status=(COMPLETE|ACTIVE)` 
+- Current Order by user (args: user id)[token required]:
+  - [GET] `orders?userId=&status=(COMPLETE|ACTIVE)`
   - [GET] `users/:id/orders?status=(COMPLETE|ACTIVE)` (optional route)
   - Example: `orders/userId=1&status=ACTIVE`
 
@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS orders (
 ```
 
 #### Order Products
+
 - id of the order [FK]
 - id of the product [FK]
 - quantity
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS order_products (
 	CONSTRAINT fk_product
 		FOREIGN KEY(product_id)
 			REFERENCES products(id),
-  
+
 	CONSTRAINT fk_order
 		FOREIGN KEY(order_id)
 			REFERENCES orders(id)
