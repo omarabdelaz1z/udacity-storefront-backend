@@ -2,7 +2,7 @@ import { Application, json } from "express";
 import cors from "cors";
 import morgan from "morgan";
 
-const mount = (app: Application) => {
+const mount = (app: Application): void  => {
   app.use(json({ limit: "2mb" }));
   app.use(cors());
   app.use(morgan("dev"));
