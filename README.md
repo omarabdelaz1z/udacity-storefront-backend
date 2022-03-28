@@ -11,6 +11,7 @@ It is expected to run `npm install` first before executing any of the scripts be
 #### Database Setup
 
 1. CREATE TWO DATABASES
+
 ```sql
 -- development database
 CREATE DATABASE storefront;
@@ -20,18 +21,21 @@ CREATE DATABASE storefront_test;
 ```
 
 2. GRANT PRIVILEGES
+
 ```sql
 -- connect to storefront and grant privileges to `default_user`
 \c storefront
 GRANT ALL PRIVILEGES ON DATABASE storefront TO postgres
 
--- connect to storefront_test and grant privileges to `default_user` 
+-- connect to storefront_test and grant privileges to `default_user`
 \c storefront_test
 GRANT ALL PRIVILEGES ON DATABASE storefront_test TO postgres
 ```
+
 > place the proper configuration according to `.env` based on the keys existing in `database.json`
 
 #### Scripts
+
 - linting: `npm run lint`
 - formatting: `npm run pretty`
 - dev: `npm run dev`
@@ -64,6 +68,5 @@ SALT_ROUNDS=7
 Kindly find them at [REQUIREMENTS](REQUIREMENTS.md).
 
 Note: You need to attach `authorization` in the request headers to access the routes:
+
 - `Authorization: Bearer <token>`
-
-
